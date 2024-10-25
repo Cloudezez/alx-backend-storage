@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-"""
-Main file
-"""
-import redis
+""" Main file """
 
-Cache = __import__('exercise').Cache
+from exercise import Cache, replay
 
 cache = Cache()
 
-data = b"hello"
-key = cache.store(data)
-print(key)
+s1 = cache.store("first")
+s2 = cache.store("second")
+s3 = cache.store(42)
 
-local_redis = redis.Redis()
-print(local_redis.get(key))
+# Replay history of cache.store calls
+replay(cache.store)
 
